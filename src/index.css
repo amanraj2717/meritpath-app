@@ -2,41 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Modern Scholarship Management System Design */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Brand Colors - Professional Blue/Purple Theme */
+    --background: 250 100% 99%;
+    --foreground: 224 71.4% 4.1%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 224 71.4% 4.1%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 224 71.4% 4.1%;
 
-    --primary: 222.2 47.4% 11.2%;
+    /* Primary Brand - Deep Blue */
+    --primary: 221 83% 53%;
     --primary-foreground: 210 40% 98%;
+    --primary-light: 221 83% 65%;
+    --primary-dark: 221 83% 41%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Purple Accent */
+    --secondary: 262 52% 47%;
+    --secondary-foreground: 210 40% 98%;
+    --secondary-light: 262 52% 65%;
 
+    /* Success State - Green */
+    --success: 142 76% 36%;
+    --success-foreground: 355 100% 97%;
+    --success-light: 142 76% 48%;
+
+    /* Warning State - Orange */
+    --warning: 32 95% 44%;
+    --warning-foreground: 355 100% 97%;
+    --warning-light: 32 95% 56%;
+
+    /* Neutral Colors */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
     --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent-foreground: 224 71.4% 4.1%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 221 83% 53%;
 
-    --radius: 0.5rem;
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(var(--success-light)));
+    --gradient-warning: linear-gradient(135deg, hsl(var(--warning)), hsl(var(--warning-light)));
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(var(--primary) / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(var(--primary) / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(var(--primary) / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(var(--primary) / 0.1);
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.3);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +130,99 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+  }
+}
+
+@layer components {
+  /* Hero Button Variant */
+  .btn-hero {
+    @apply bg-gradient-to-r from-primary to-secondary text-primary-foreground font-semibold px-8 py-3 rounded-xl 
+           shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-glow;
+  }
+
+  /* Status Badge Variants */
+  .badge-pending {
+    @apply bg-warning/10 text-warning border border-warning/20 px-3 py-1 rounded-lg font-medium;
+  }
+  
+  .badge-sag-approved {
+    @apply bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-lg font-medium;
+  }
+  
+  .badge-finance-approved {
+    @apply bg-success/10 text-success border border-success/20 px-3 py-1 rounded-lg font-medium;
+  }
+  
+  .badge-rejected {
+    @apply bg-destructive/10 text-destructive border border-destructive/20 px-3 py-1 rounded-lg font-medium;
+  }
+
+  /* Card Variants */
+  .card-gradient {
+    @apply bg-gradient-to-br from-card to-muted border border-border/50 shadow-md hover:shadow-lg transition-all duration-300;
+  }
+
+  .card-featured {
+    @apply bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-102;
+  }
+
+  /* Animation Classes */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+  }
+
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-muted rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-primary/30 rounded-full hover:bg-primary/50;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
